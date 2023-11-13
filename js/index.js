@@ -1,9 +1,12 @@
 const cards = document.querySelectorAll(".memory-card");
 
 let hasFlippedCard = false;
+let boardLoced = false;
 let firstCard, secondCard;
 
 const flipCard = e => {
+    if (boardLoced) return;
+
 const target = e.target.parentElement;
 
 target.classList.add("flip");
@@ -30,12 +33,16 @@ const checkForMatch = () => {
         firstCard.removeEventListener("click", flipCard);
         secondCard.removeEventListener("click", flipCard);
     } else {
+        boardLoced = true;
+
         setTimeout (() => {
             firstCard.classList.remove("flip");
             secondCard.classList.remove("flip");
-        }, 1000 )
+
+            boardLoced = false;
+        }, 1000 );
     }
-}
+};
 
 cards.forEach(card => {
     //Add Event Listener to every card
