@@ -55,4 +55,7 @@ const unflipCards = () => {
 cards.forEach(card => {
     //Add Event Listener to every card
     card.addEventListener("click", flipCard);
-})
+
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    card.style.order = randomIndex;
+});
