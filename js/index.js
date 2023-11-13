@@ -1,11 +1,11 @@
 const cards = document.querySelectorAll(".memory-card");
 
 let hasFlippedCard = false;
-let boardLoced = false;
+let boardLocked = false;
 let firstCard, secondCard;
 
 const flipCard = e => {
-    if (boardLoced) return;
+    if (boardLocked) return;
 
 const target = e.target.parentElement;
 
@@ -14,6 +14,7 @@ if (target === firstCard) return;
 target.classList.add("flip");
 
 console.log("FRAMEWORK OF CURRENT CARD", target.dataset.framework);
+
 if (!hasFlippedCard) {
     // First click
 
@@ -42,14 +43,24 @@ const disableCards = () => {
 };
 
 const unflipCards = () => {
-    boardLoced = true;
+    boardLocked = true;
 
     setTimeout (() => {
         firstCard.classList.remove("flip");
         secondCard.classList.remove("flip");
 
-        boardLoced = false;
+        resetBoard();
     }, 1000 );
+};
+
+const resetBoard = () => {
+    //Too heavy(SPREAD)
+    // [hasFlippedCard, boardLocked] = [false, false];
+    // [firstCard, secondCard] = [null, null];
+
+    //Better(double insertation)
+    hasFlippedCard = boardLocked = false;
+    firstCard = secondCard = null;
 };
 
 cards.forEach(card => {
