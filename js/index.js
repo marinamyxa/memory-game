@@ -9,6 +9,8 @@ const flipCard = e => {
 
 const target = e.target.parentElement;
 
+if (target === firstCard) return;
+
 target.classList.add("flip");
 
 console.log("FRAMEWORK OF CURRENT CARD", target.dataset.framework);
@@ -29,19 +31,25 @@ if (!hasFlippedCard) {
 };
 
 const checkForMatch = () => {
-    if (firstCard.dataset.framework === secondCard.dataset.framework) {
-        firstCard.removeEventListener("click", flipCard);
-        secondCard.removeEventListener("click", flipCard);
-    } else {
-        boardLoced = true;
+    const isEqual = firstCard.dataset.framework === secondCard.dataset.framework;
 
-        setTimeout (() => {
-            firstCard.classList.remove("flip");
-            secondCard.classList.remove("flip");
+    isEqual ? disableCards() : unflipCards();
+};
 
-            boardLoced = false;
-        }, 1000 );
-    }
+const disableCards = () => {
+    firstCard.removeEventListener("click", flipCard);
+    secondCard.removeEventListener("click", flipCard);
+};
+
+const unflipCards = () => {
+    boardLoced = true;
+
+    setTimeout (() => {
+        firstCard.classList.remove("flip");
+        secondCard.classList.remove("flip");
+
+        boardLoced = false;
+    }, 1000 );
 };
 
 cards.forEach(card => {
