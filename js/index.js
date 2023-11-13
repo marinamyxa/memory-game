@@ -30,7 +30,10 @@ const checkForMatch = () => {
         firstCard.removeEventListener("click", flipCard);
         secondCard.removeEventListener("click", flipCard);
     } else {
-        
+        setTimeout (() => {
+            firstCard.classList.remove("flip");
+            secondCard.classList.remove("flip");
+        }, 1000 )
     }
 }
 
